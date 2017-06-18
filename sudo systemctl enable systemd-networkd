@@ -1,0 +1,39 @@
+sudo systemctl enable systemd-networkd
+sudo systemctl enable systemd-resolved
+sudo systemctl start systemd-resolved
+sudo rm /etc/resolv.conf
+sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+sudo systemctl restart systemd-networkd
+
+
+systemctl status systemd-networkd
+	(Should be Active)
+systemctl status systemd-resolved
+	(Should be Active)
+
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get dist-upgrade -y
+
+sudo apt-get install raspberrypi-kernel
+
+sudo raspi-config
+
+sudo rpi-update
+
+#INSTALL SALTSTACK
+
+wget -O - https://repo.saltstack.com/apt/debian/8/armhf/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
+
+sudo su -c "echo 'deb http://repo.saltstack.com/apt/debian/8/armhf/latest jessie main' >> /etc/apt/sources.list.d/saltstack.list"
+
+sudo apt-get update
+
+sudo apt-get install salt-minion
+sudo systemctrl enable salt-minion
+
+
+
+
+
+curl -sSL https://get.docker.com | sh
